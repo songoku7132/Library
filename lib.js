@@ -84,6 +84,8 @@ function createAList(book, index) {
     myLibrary.splice(index, 1);
     const el = document.getElementById(`row-${index}`);
     el.remove();
+    console.log(myLibrary);
+    saveAndRenderBooks();
   });
   deleteBookBox.appendChild(deleteBook);
   saveAndRenderBooks();
@@ -113,7 +115,13 @@ function addLocalStorage() {
   myLibrary = JSON.parse(localStorage.getItem("library")) || [];
   renderBooks();
 }
-
-addBtn.addEventListener("click", addBookToLibrary);
+const validateForm = () => {
+  if ($title.value === "" || $author.value === "" || $pages.value === "" || $read.value === "") {
+    alert("Please fill out all field.");
+  } else {
+    addBookToLibrary();
+  }
+};
+addBtn.addEventListener("click", validateForm);
 addLocalStorage();
 // localStorage.clear();
